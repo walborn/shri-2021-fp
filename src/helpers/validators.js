@@ -73,7 +73,7 @@ export const validateFieldN5 = anyPass([
 // 6. Две зеленые фигуры (одна из них треугольник), еще одна любая красная.
 export const validateFieldN6 = allPass([
     compose(green, triangle),
-    compose(lte(2), count(green)),
+    compose(equals(2), count(green)),
     compose(equals(1), count(red)),
 ])
 
