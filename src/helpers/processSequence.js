@@ -12,6 +12,7 @@ import {
     flip,
     partial,
 } from 'ramda'
+
 /**
  * @file Домашка по FP ч. 2
  * 
@@ -28,18 +29,15 @@ import {
  * Иногда промисы от API будут приходить в состояние rejected, (прямо как и API в реальной жизни)
  * Ответ будет приходить в поле {result}
  */
-import Api from '../tools/api'
 
+import Api from '../tools/api'
 const api = new Api()
 
-
-const isGte2Lte10 = test(/^.{2,10}$/)
+const isGte2Lte10 = test(/^.{3,9}$/)
 const isFloat = test(/^[0-9]+\.?[0-9]*$/)
 const isValid = allPass([ isFloat, isGte2Lte10 ])
 const square = number => number ** 2
-
 const parseNumber = compose(Math.round, parseFloat);
-
 
 const fetchBinary = compose(
     andThen(prop('result')),
@@ -72,7 +70,7 @@ const processSequence = ({ value, writeLog, handleSuccess, handleError }) => com
             tap(writeLog),
             parseNumber, // 3. Привести строку к числу, округлить к ближайшему целому ✏️
         ),
-        partial(handleError, [ 'ValidationError' ]), // 2💥 В случае ошибки валидации вызвать handleError с 'ValidationError' строкой в качестве аргумента
+        partial(handleError, [ 'ValidationError' ]), // 💥2. В случае ошибки валидации вызвать handleError с 'ValidationError' строкой в качестве аргумента
     ),
     tap(writeLog), // 1. Берем строку N. Пишем изначальную строку в writeLog.
 )(value)
