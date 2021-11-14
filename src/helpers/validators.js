@@ -52,10 +52,7 @@ export const validateFieldN2 =
     compose(lte(2), count(green))
 
 // 3. Количество красных фигур равно кол-ву синих.
-export const validateFieldN3 = equals(
-    count(red),
-    count(blue),
-)
+export const validateFieldN3 = (figures) => equals(count(red)(figures), count(blue)(figures))
 
 // 4. Синий круг, красная звезда, оранжевый квадрат
 export const validateFieldN4 = allPass([
@@ -77,7 +74,7 @@ export const validateFieldN5 = anyPass([
 export const validateFieldN6 = allPass([
     compose(green, triangle),
     compose(lte(2), count(green)),
-    compose(lte(1), count(red)),
+    compose(equals(1), count(red)),
 ])
 
 // 7. Все фигуры оранжевые.
